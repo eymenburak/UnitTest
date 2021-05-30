@@ -11,19 +11,61 @@ namespace UnitTest.Test
         [Fact]
         public void AddTest()
         {
-            //Arrange
-            int a = 5;
-            int b = 20;
+            ////Arrange
+            //int a = 5;
+            //int b = 20;
 
-            var calculator = new Calculator();
+            //var calculator = new Calculator();
 
-            //Act
-            var total = calculator.Add(a, b);
+            ////Act
+            //var total = calculator.Add(a, b);
 
-            //Assert
-            //Assert.Equal<int>(25, total);
-            Assert.NotEqual<int>(25, total);
+            ////Assert
+            ////Assert.Equal<int>(25, total);
+            //Assert.NotEqual<int>(25, total);
 
+            var names = new List<string>() { "Eymen", "Burak", "Vural" };
+
+            Assert.Contains(names, x => x == "Eymen");
+
+            //Assert.Contains("Eymen", "Eymen Burak");
+            //Assert.DoesNotContain("Eymen", "Eymen Burak");
+
+            //Assert.True(5 > 7);
+            //Assert.False(5 > 7);
+
+            //Assert.True("".GetType() == typeof(string));
+
+            var regex = "^dog";
+            //Assert.Matches(regex, "dog cat");
+            //Assert.Matches(regex, "catdog cat");
+            //Assert.DoesNotMatch(regex, "catdog cat");
+
+            //Assert.StartsWith("Eym", "Eymen");
+            //Assert.EndsWith("en", "Eymen");
+
+            //Assert.Empty(new List<string>());
+            //Assert.Empty(new List<string>() {"Eymen" });
+            //Assert.NotEmpty(new List<string>() {"Eymen" });
+
+
+            //Assert.InRange(10, 2, 20);
+            //Assert.NotInRange(10, 2, 20);
+
+            //Assert.Single(new List<string>() { "Eymen", "Burak" });
+            //Assert.Single<int>(new List<int>() {1,3,4});
+
+            //Assert.IsType<int>("Eymen");
+            //Assert.IsNotType<int>("Eymen");
+
+            //Assert.IsAssignableFrom<IEnumerable<string>>(new List<string>());
+            //Assert.IsAssignableFrom<object>(2);
+
+            //string value = "";
+            ////Assert.Null(value);
+            //Assert.NotNull(value);
+
+            //Assert.Equal<int>(2, 3);
         }
     }
 }
