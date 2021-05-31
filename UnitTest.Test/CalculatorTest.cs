@@ -8,6 +8,14 @@ namespace UnitTest.Test
 {
     public class CalculatorTest
     {
+
+        public Calculator calculator { get; set; }
+        public CalculatorTest()
+        {
+            this.calculator = new Calculator();
+        }
+
+
         [Fact]
         public void AddTest()
         {
@@ -66,6 +74,17 @@ namespace UnitTest.Test
             //Assert.NotNull(value);
 
             //Assert.Equal<int>(2, 3);
+        }
+
+        [Theory]
+        [InlineData(2, 5, 7)]
+        [InlineData(10, 2, 12)]
+        public void AddTest2(int a, int b, int expectedTotal)
+        {
+
+            var actualTotal = calculator.Add(a, b);
+
+            Assert.Equal(expectedTotal, actualTotal);
         }
     }
 }
