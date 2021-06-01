@@ -79,7 +79,18 @@ namespace UnitTest.Test
         [Theory]
         [InlineData(2, 5, 7)]
         [InlineData(10, 2, 12)]
-        public void AddTest2(int a, int b, int expectedTotal)
+        public void Add_SimpleValues_ReturnTotalValue(int a, int b, int expectedTotal)
+        {
+
+            var actualTotal = calculator.Add(a, b);
+
+            Assert.Equal(expectedTotal, actualTotal);
+        } 
+        
+        [Theory]
+        [InlineData(0, 5, 0)]
+        [InlineData(10, 0, 1)]
+        public void Add_ZeroValues_ReturnZeroValue(int a, int b, int expectedTotal)
         {
 
             var actualTotal = calculator.Add(a, b);
