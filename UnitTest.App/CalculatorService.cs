@@ -13,6 +13,12 @@ namespace UnitTest.App
 
         public int Multip(int a, int b)
         {
+
+            if (a==0)
+            {
+                throw new Exception("a = 0 !!!");
+
+            }
             return a * b;
         }
     }

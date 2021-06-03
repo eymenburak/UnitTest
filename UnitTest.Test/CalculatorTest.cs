@@ -92,12 +92,12 @@ namespace UnitTest.Test
 
             Assert.Equal(expectedTotal, actualTotal);
 
-            Mock.Verify(x => x.Add(a, b), Times.AtLeast(2));
+            Mock.Verify(x => x.Add(a, b), Times.AtLeast(1));
         } 
         
         [Theory]
         [InlineData(0, 5, 0)]
-        [InlineData(10, 0, 1)]
+        [InlineData(10, 0, 0)]
         public void Add_ZeroValues_ReturnZeroValue(int a, int b, int expectedTotal)
         {
             var actualTotal = calculator.Add(a, b);
@@ -109,9 +109,31 @@ namespace UnitTest.Test
         [InlineData(3, 5, 15)]
         public void Multip_SimpleValues_ReturnsMultipValue(int a, int b,int expectedValue)
         {
-            Mock.Setup(x => x.Multip(a, b)).Returns(expectedValue);
+            int actualMultip = 0;
+            Mock.Setup(x => x.Multip(It.IsAny<int>(), It.IsAny<int>())).Callback<int,int>((x,y)=>actualMultip = x*y).Returns(expectedValue);
 
-            Assert.Equal(15, calculator.Multip(a, b));
+            calculator.Multip(a, b);
+
+            Assert.Equal(expectedValue, actualMultip);
+
+            //Assert.Equal(expectedValue, calculator.Multip(a, b));
+
+            calculator.Multip(5, 20);
+
+            Assert.Equal(100, actualMultip);
         }
+
+        [Theory]
+        [InlineData(0, 5)]
+        public void Multip_ZeroValue_ReturnsException(int a, int b)
+        {
+            Mock.Setup(x => x.Multip(a, b)).Throws(new Exception("a=0 !!!"));
+
+            Exception exception =  Assert.Throws<Exception>(() => calculator.Multip(a, b));
+
+            Assert.Equal("a=0 !!!", exception.Message);
+        }
+
+
     }
 }
