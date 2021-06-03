@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnitTest.App;
@@ -10,15 +11,18 @@ namespace UnitTest.Test
     {
 
         public Calculator calculator { get; set; }
+        public Mock<ICalculatorService> Mock { get; set; }
         public CalculatorTest()
         {
-            this.calculator = new Calculator();
+            Mock = new Mock<ICalculatorService>();
+            this.calculator = new Calculator(Mock.Object);
         }
 
 
         [Fact]
         public void AddTest()
         {
+            #region Assert Methods
             ////Arrange
             //int a = 5;
             //int b = 20;
@@ -32,9 +36,9 @@ namespace UnitTest.Test
             ////Assert.Equal<int>(25, total);
             //Assert.NotEqual<int>(25, total);
 
-            var names = new List<string>() { "Eymen", "Burak", "Vural" };
+            //var names = new List<string>() { "Eymen", "Burak", "Vural" };
 
-            Assert.Contains(names, x => x == "Eymen");
+            //Assert.Contains(names, x => x == "Eymen");
 
             //Assert.Contains("Eymen", "Eymen Burak");
             //Assert.DoesNotContain("Eymen", "Eymen Burak");
@@ -44,7 +48,7 @@ namespace UnitTest.Test
 
             //Assert.True("".GetType() == typeof(string));
 
-            var regex = "^dog";
+            //var regex = "^dog";
             //Assert.Matches(regex, "dog cat");
             //Assert.Matches(regex, "catdog cat");
             //Assert.DoesNotMatch(regex, "catdog cat");
@@ -74,6 +78,7 @@ namespace UnitTest.Test
             //Assert.NotNull(value);
 
             //Assert.Equal<int>(2, 3);
+            #endregion
         }
 
         [Theory]
@@ -81,6 +86,8 @@ namespace UnitTest.Test
         [InlineData(10, 2, 12)]
         public void Add_SimpleValues_ReturnTotalValue(int a, int b, int expectedTotal)
         {
+            Mock.Setup(x => x.Add(a, b)).Returns(expectedTotal);
+
 
             var actualTotal = calculator.Add(a, b);
 
@@ -92,10 +99,18 @@ namespace UnitTest.Test
         [InlineData(10, 0, 1)]
         public void Add_ZeroValues_ReturnZeroValue(int a, int b, int expectedTotal)
         {
-
             var actualTotal = calculator.Add(a, b);
 
             Assert.Equal(expectedTotal, actualTotal);
+        }
+
+        [Theory]
+        [InlineData(3, 5, 15)]
+        public void Multip_SimpleValues_ReturnsMultipValue(int a, int b,int expectedValue)
+        {
+            Mock.Setup(x => x.Multip(a, b)).Returns(expectedValue);
+
+            Assert.Equal(15, calculator.Multip(a, b));
         }
     }
 }
