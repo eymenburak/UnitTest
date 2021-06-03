@@ -88,10 +88,11 @@ namespace UnitTest.Test
         {
             Mock.Setup(x => x.Add(a, b)).Returns(expectedTotal);
 
-
             var actualTotal = calculator.Add(a, b);
 
             Assert.Equal(expectedTotal, actualTotal);
+
+            Mock.Verify(x => x.Add(a, b), Times.AtLeast(2));
         } 
         
         [Theory]
